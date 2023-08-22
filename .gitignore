@@ -1,0 +1,13 @@
+# Node.js
+node_modules/
+npm-debug.log
+
+# Editor/IDE specific
+.vscode/
+.idea/
+
+# Environment files
+.env
+
+# Dependency lock files
+package-lock.json

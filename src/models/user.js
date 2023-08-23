@@ -4,8 +4,9 @@ const { hashPassword } = require("../utils/bycript");
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
+    documentType: { type: String, required: true },
+    documentNumber: { type: Number, required: true },
     email: { type: String, required: true, unique: true },
-    cellphoneNumber: { type: Number, required: true },
     password: { type: String, required: true },
   },
   { collection: "User" }

@@ -1,11 +1,36 @@
 const User = require("../models/user");
+const transporter = require("../utils/emailSender");
 
 //Función para crear un usuario
 const createUser = async (req, res) => {
   try {
-    const { name, email, cellphoneNumber, password } = req.body;
-    const user = new User({ name, email, cellphoneNumber, password });
+    const { name, documentType, documentNumber, email, password } = req.body;
+    const user = new User({
+      name,
+      documentType,
+      documentNumber,
+      email,
+      password,
+    });
     await user.save();
+
+    // Configuración del correo de notificación
+    const mailOptions = {
+      from: user.email,
+      to: user.email,
+      subject: "Cuenta creada exitosamente",
+      text: "¡Tu cuenta ha sido creada exitosamente!",
+    };
+
+    // Enviar correo de notificación
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error al enviar el correo:", error);
+      } else {
+        console.log("Correo de notificación enviado:", info.response);
+      }
+    });
+
     res.status(201).send("Usuario creado exitosamente!");
   } catch (error) {
     res.status(400).send(error);

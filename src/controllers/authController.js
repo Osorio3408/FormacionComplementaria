@@ -24,7 +24,7 @@ const signIn = async (req, res) => {
     const token = jwt.sign(
       {
         userId: user._id,
-        name: user.name,
+        name: user.name,    
         email: user.email,
       },
       "mi_secreto_supersecreto",

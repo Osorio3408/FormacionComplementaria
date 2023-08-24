@@ -8,7 +8,16 @@ const PORT = process.env.PORT || 3000;
 
 // Configuración de las políticas de CORS
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); // Cambia esto al dominio correcto
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "https://formacion-complementaria.netlify.app",
+  ];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
@@ -18,8 +27,8 @@ app.use(express.json());
 
 connectDB();
 
-app.use("/api", userRoutes); // Montar las rutas de usuarios bajo la ruta base "/api"
-app.use("/api", companyRoutes); // Montar las rutas de usuarios bajo la ruta base "/api"
+app.use("/api", userRoutes);
+app.use("/api", companyRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

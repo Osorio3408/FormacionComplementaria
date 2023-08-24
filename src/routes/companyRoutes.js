@@ -13,7 +13,4 @@ router.post("/newCompany", createCompany);
 // Ruta para obtener todos los usuarios
 router.get("/getCompanys", findCompanys);
 
-// Ruta para iniciar sesión
-router.post("/signIn", signIn);
-
 module.exports = router;

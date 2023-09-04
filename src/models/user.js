@@ -1,13 +1,17 @@
 const mongoose = require("mongoose");
 const { hashPassword } = require("../utils/bycript");
 
+//Modelo de un usuario (ENCARGADO, ADMIN, EMPLEADO, INSTRUCTOR)
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    nameUser: { type: String, required: true },
     documentType: { type: String, required: true },
-    documentNumber: { type: Number, required: true },
-    email: { type: String, required: true, unique: true },
+    documentNumber: { type: Number, required: true, unique: true },
+    cellphoneNumberUser: { type: Number, required: true },
+    emailUser: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    rol: { type: String, required: true },
+    nit: { type: String, ref: "Enterprise" }, // Referencia a la Empresa
   },
   { collection: "User" }
 );

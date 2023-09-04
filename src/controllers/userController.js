@@ -1,16 +1,28 @@
 const User = require("../models/user");
 const transporter = require("../utils/emailSender");
 
-//Función para crear un usuario
+//Función para crear un EMPLEADO
 const createUser = async (req, res) => {
   try {
-    const { name, documentType, documentNumber, email, password } = req.body;
-    const user = new User({
-      name,
+    const {
+      nameUser,
       documentType,
       documentNumber,
-      email,
+      cellphoneNumberUser,
+      emailUser,
       password,
+      rol,
+      nit,
+    } = req.body;
+    const user = new User({
+      nameUser,
+      documentType,
+      documentNumber,
+      cellphoneNumberUser,
+      emailUser,
+      password,
+      rol,
+      nit,
     });
     await user.save();
 

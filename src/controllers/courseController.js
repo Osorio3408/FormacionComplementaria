@@ -73,6 +73,7 @@ const createCourse = async (req, res) => {
       emailManager,
       courseNumber,
       nameCourse,
+      nameCourseAssigned,
       radicado,
       nis,
       instructor,
@@ -83,6 +84,7 @@ const createCourse = async (req, res) => {
       idState,
     } = req.body;
 
+    console.log(nit);
     // Aquí debes crear un nuevo objeto Course con los datos recibidos y guardarlo en la base de datos.
 
     // Ejemplo de cómo crear y guardar un nuevo curso:
@@ -100,6 +102,7 @@ const createCourse = async (req, res) => {
       course: {
         courseNumber,
         nameCourse,
+        nameCourseAssigned,
         radicado,
         nis,
         instructor,
@@ -120,4 +123,37 @@ const createCourse = async (req, res) => {
   }
 };
 
-module.exports = { getAllEmpresas, getEmpresaDetails, createCourse };
+//Función para listar los cursos y todos sus detalles.
+const getCourses = async (req, res) => {
+  try {
+    // const empresas = await Course.distinct("enterprise.nameEnterprise");
+    const courses = await Course.find();
+    res.status(200).send(courses);
+
+    // res.json(empresas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al obtener los cursos" });
+  }
+};
+const getCoursesEnterprise = async (req, res) => {
+  try {
+    const { nit } = req.params;
+
+    const courses = await Course.find({ "enterprise.nit": nit });
+    res.status(200).send(courses);
+
+    // res.json(empresas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al obtener los cursos" });
+  }
+};
+
+module.exports = {
+  getAllEmpresas,
+  getEmpresaDetails,
+  createCourse,
+  getCourses,
+  getCoursesEnterprise,
+};

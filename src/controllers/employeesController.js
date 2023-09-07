@@ -1,3 +1,4 @@
+const Course = require("../models/Course");
 const User = require("../models/user");
 const transporter = require("../utils/emailSender");
 
@@ -214,6 +215,42 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
+// Controlador para inscribir un usuario en un curso
+const enrollUserInCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params; // ID del curso al que se inscribe el usuario
+    const { userId } = req.body; // Número de documento del usuario
+
+    // Buscar el curso por su ID
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ error: "Curso no encontrado" });
+    }
+
+    // Verificar si el usuario ya está inscrito en el curso
+    if (course.inscribed.includes(userId)) {
+      return res
+        .status(400)
+        .json({ error: "El usuario ya está inscrito en este curso" });
+    }
+
+    course.inscribed.push(userId);
+    course.course.inscribeedNumber++; // Incrementa el contador
+
+    // Guardar los cambios en la base de datos
+    await course.save();
+
+    res
+      .status(200)
+      .json({ message: "Usuario inscrito en el curso correctamente" });
+  } catch (error) {
+    console.error("Error al inscribir al usuario en el curso:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+// Agrega las funciones en la exportación para poder usarlas
 module.exports = {
   uploadUsers,
   getEmployeed,
@@ -221,5 +258,6 @@ module.exports = {
   listEmployeesWithoutCompany,
   assignNITToEmployee,
   editEmployee,
-  deleteEmployee, // Agrega la nueva función a las exportaciones
+  deleteEmployee,
+  enrollUserInCourse,
 };

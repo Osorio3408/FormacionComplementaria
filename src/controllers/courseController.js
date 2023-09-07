@@ -164,14 +164,17 @@ const updateCourse = async (req, res) => {
   try {
     const { idCourse } = req.params;
     const updates = req.body; // Los datos que el cliente quiere actualizar
-    // console.log(idCourse);
-    // console.log(updates);
 
     // Busca el curso por su ID
     const course = await Course.findById(idCourse);
 
     if (!course) {
       return res.status(404).json({ message: "Curso no encontrado" });
+    }
+
+    // Asegúrate de que course.inscribeedNumber se incluya en las actualizaciones
+    if (updates.hasOwnProperty('inscribeedNumber')) {
+      course.inscribeedNumber = updates.inscribeedNumber;
     }
 
     // Actualiza solo los campos que se proporcionaron en la solicitud
@@ -188,6 +191,7 @@ const updateCourse = async (req, res) => {
     res.status(500).json({ message: "Error al actualizar el curso" });
   }
 };
+
 
 module.exports = {
   getAllEmpresas,

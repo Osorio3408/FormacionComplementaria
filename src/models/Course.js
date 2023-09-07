@@ -31,6 +31,8 @@ const courseSchema = new mongoose.Schema({
     minRequirement: { type: Number, required: true },
   },
 
+  inscribed: [{ type: Number, ref: "User" }],
+
   //Campo para el número de documento del instructor que va dictar el curso/formación
   documentNumberTeacher: { type: Number },
   //Campo para el id del estado del curso/formacion

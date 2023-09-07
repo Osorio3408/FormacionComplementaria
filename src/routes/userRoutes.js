@@ -13,6 +13,7 @@ const {
   assignNITToEmployee,
   editEmployee,
   deleteEmployee,
+  enrollUserInCourse,
 } = require("../controllers/employeesController");
 const { getInstructors } = require("../controllers/instructor");
 
@@ -53,5 +54,8 @@ router.delete("/deleteEmployee/:documentNumber", deleteEmployee);
 
 //Ruta para obtener a los instructores o usuarios con rol 'Instructor'
 router.get("/getInstructors", getInstructors);
+
+// Ruta para inscribir un usuario en un curso
+router.post("/enrollUserInCourse/:courseId", enrollUserInCourse);
 
 module.exports = router;

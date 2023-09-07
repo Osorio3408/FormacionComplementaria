@@ -7,13 +7,13 @@ const Enterprise = require("../models/enterprise");
 const signIn = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     // Buscar el usuario por correo electrónico
     const user = await User.findOne({ emailUser: email });
     const enterprise = await Enterprise.findOne({ nit: user.nit });
-    console.log(user);
+    // console.log(user);
 
     if (!user) {
       return res
@@ -23,7 +23,7 @@ const signIn = async (req, res) => {
 
     // Verificar la contraseña
     const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log(passwordMatch);
+    // console.log(passwordMatch);
 
     if (!passwordMatch) {
       return res.status(401).json({ error: "Credenciales inválidas PASSWORD" });

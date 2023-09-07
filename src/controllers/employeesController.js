@@ -85,6 +85,20 @@ const listEmployeesByCompany = async (req, res) => {
   }
 };
 
+//Lista toodos los empleados sin empresa
+const listEmployeesWithoutCompany = async (req, res) => {
+  try {
+    const users = await User.find({
+      rol: "Employee",
+      nit: "",
+    });
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
 //Lista un solo empleado por el número de documento
 const getEmployeed = async (req, res) => {
   try {
@@ -105,8 +119,41 @@ const getEmployeed = async (req, res) => {
   }
 };
 
+// Endpoint para asignar un NIT a un empleado
+const assignNITToEmployee = async (req, res) => {
+  try {
+    const { documentNumber, nit } = req.body;
+
+    if (!documentNumber || !nit) {
+      return res
+        .status(400)
+        .json({ error: "Los campos documentNumber y nit son requeridos" });
+    }
+
+    // Encuentra al empleado por el número de documento
+    const employee = await User.findOne({ documentNumber });
+
+    if (!employee) {
+      return res.status(404).json({ error: "Empleado no encontrado" });
+    }
+
+    // Asigna el NIT al empleado
+    employee.nit = nit;
+
+    // Guarda los cambios en la base de datos
+    await employee.save();
+
+    res.status(200).json({ message: "NIT asignado correctamente" });
+  } catch (error) {
+    console.error("Error al asignar el NIT:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
 module.exports = {
   uploadUsers,
   getEmployeed,
   listEmployeesByCompany,
+  listEmployeesWithoutCompany,
+  assignNITToEmployee,
 };

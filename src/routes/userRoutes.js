@@ -9,6 +9,8 @@ const {
   uploadUsers,
   listEmployeesByCompany,
   getEmployeed,
+  listEmployeesWithoutCompany,
+  assignNITToEmployee,
 } = require("../controllers/employeesController");
 const { getInstructors } = require("../controllers/instructor");
 
@@ -34,6 +36,12 @@ router.post("/signIn", signIn);
 
 //Ruta para crear los empleados con excel
 router.post("/newEmployees", uploadUsers);
+
+//Ruta para obtener los usuarios sin empresa para agregar a empresas
+router.get("/getEmployeesWithoutCompany", listEmployeesWithoutCompany);
+
+// Ruta para asignarle una empresa a un usuario
+router.post("/assignNITToEmployee", assignNITToEmployee);
 
 //Ruta para obtener a los instructores o usuarios con rol 'Instructor'
 router.get("/getInstructors", getInstructors);

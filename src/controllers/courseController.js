@@ -88,7 +88,7 @@ const createCourse = async (req, res) => {
       idState,
     } = req.body;
 
-    console.log(nit);
+    // console.log(nit);
     // Aquí debes crear un nuevo objeto Course con los datos recibidos y guardarlo en la base de datos.
 
     // Ejemplo de cómo crear y guardar un nuevo curso:
@@ -164,8 +164,8 @@ const updateCourse = async (req, res) => {
   try {
     const { idCourse } = req.params;
     const updates = req.body; // Los datos que el cliente quiere actualizar
-    console.log(idCourse);
-    console.log(updates);
+    // console.log(idCourse);
+    // console.log(updates);
 
     // Busca el curso por su ID
     const course = await Course.findById(idCourse);

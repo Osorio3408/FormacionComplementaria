@@ -5,6 +5,7 @@ const {
   createCourse,
   getCourses,
   getCoursesEnterprise,
+  updateCourse,
 } = require("../controllers/courseController");
 
 const router = express.Router();
@@ -19,5 +20,7 @@ router.post("/newCourse", createCourse);
 router.get("/getCourses", getCourses);
 //Ruta para obtener los cursos y detalles de una sola empresa por su nit.
 router.get("/getCoursesEnterprise/:nit", getCoursesEnterprise);
+//Ruta para actualizar/modificar un curso.
+router.put("/updateCourse/:idCourse", updateCourse);
 
 module.exports = router;

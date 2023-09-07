@@ -10,6 +10,7 @@ const {
   listEmployeesByCompany,
   getEmployeed,
 } = require("../controllers/employeesController");
+const { getInstructors } = require("../controllers/instructor");
 
 const router = express.Router();
 
@@ -33,5 +34,8 @@ router.post("/signIn", signIn);
 
 //Ruta para crear los empleados con excel
 router.post("/newEmployees", uploadUsers);
+
+//Ruta para obtener a los instructores o usuarios con rol 'Instructor'
+router.get("/getInstructors", getInstructors);
 
 module.exports = router;

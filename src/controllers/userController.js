@@ -43,7 +43,7 @@ const createUser = async (req, res) => {
       }
     });
 
-    res.status(201).send("Usuario creado exitosamente!");
+    res.status(201).json("Usuario creado exitosamente!");
   } catch (error) {
     res.status(400).send(error);
   }

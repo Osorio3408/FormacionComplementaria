@@ -23,9 +23,10 @@ const courseSchema = new mongoose.Schema({
     instructor: { type: String },
     responseDate: { type: Date },
     startDate: { type: Date },
+    finishDate: { type: Date },
     radicadoConfirmation: { type: String },
     //Campo para ver el número de inscritos en el curso/formacion
-    inscribeedNumber: { type: Number, required: true },
+    inscribeedNumber: { type: Number, max: 50 },
     //Campo de aprendices requeridos para empezar el curso/formacion
     minRequirement: { type: Number, required: true },
   },

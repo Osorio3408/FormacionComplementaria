@@ -79,8 +79,12 @@ const createCourse = async (req, res) => {
       instructor,
       responseDate,
       startDate,
+      finishDate,
       radicadoConfirmation,
       documentNumber,
+      inscribeedNumber,
+      minRequirement,
+      documentNumberTeacher,
       idState,
     } = req.body;
 
@@ -108,8 +112,12 @@ const createCourse = async (req, res) => {
         instructor,
         responseDate,
         startDate,
+        finishDate,
         radicadoConfirmation,
+        inscribeedNumber,
+        minRequirement,
       },
+      documentNumberTeacher,
       idState,
       documentNumber,
     });
@@ -136,6 +144,7 @@ const getCourses = async (req, res) => {
     res.status(500).json({ message: "Error al obtener los cursos" });
   }
 };
+//Función para listar los cursos de una sola empresa
 const getCoursesEnterprise = async (req, res) => {
   try {
     const { nit } = req.params;
@@ -150,10 +159,41 @@ const getCoursesEnterprise = async (req, res) => {
   }
 };
 
+//Función para editar un curso
+const updateCourse = async (req, res) => {
+  try {
+    const { idCourse } = req.params;
+    const updates = req.body; // Los datos que el cliente quiere actualizar
+    console.log(idCourse);
+    console.log(updates);
+
+    // Busca el curso por su ID
+    const course = await Course.findById(idCourse);
+
+    if (!course) {
+      return res.status(404).json({ message: "Curso no encontrado" });
+    }
+
+    // Actualiza solo los campos que se proporcionaron en la solicitud
+    Object.keys(updates).forEach((key) => {
+      course[key] = updates[key];
+    });
+
+    // Guarda los cambios en la base de datos
+    await course.save();
+
+    res.status(200).json({ message: "Curso actualizado exitosamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al actualizar el curso" });
+  }
+};
+
 module.exports = {
   getAllEmpresas,
   getEmpresaDetails,
   createCourse,
   getCourses,
   getCoursesEnterprise,
+  updateCourse,
 };

@@ -150,10 +150,76 @@ const assignNITToEmployee = async (req, res) => {
   }
 };
 
+// Función para editar un empleado por número de documento
+const editEmployee = async (req, res) => {
+  try {
+    const { documentNumber } = req.params; // Obtén el número de documento desde los parámetros de la URL
+    const updatedEmployeeData = req.body; // Obtén los nuevos datos del empleado desde el cuerpo de la solicitud
+
+    if (!documentNumber) {
+      return res
+        .status(400)
+        .json({ error: "El número de documento es requerido" });
+    }
+
+    // Encuentra al empleado por el número de documento
+    const employee = await User.findOne({ documentNumber });
+
+    if (!employee) {
+      return res.status(404).json({ error: "Empleado no encontrado" });
+    }
+
+    // Actualiza los campos del empleado con los nuevos datos
+    employee.nameUser = updatedEmployeeData.nameUser;
+    employee.cellphoneNumberUser = updatedEmployeeData.cellphoneNumberUser;
+    employee.emailUser = updatedEmployeeData.emailUser;
+
+    // Guarda los cambios en la base de datos
+    await employee.save();
+
+    res.status(200).json({ message: "Empleado editado correctamente" });
+  } catch (error) {
+    console.error("Error al editar el empleado:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+// Función para eliminar un empleado por número de documento
+const deleteEmployee = async (req, res) => {
+  try {
+    const { documentNumber } = req.params; // Obtén el número de documento desde los parámetros de la URL
+
+    if (!documentNumber) {
+      return res
+        .status(400)
+        .json({ error: "El número de documento es requerido" });
+    }
+
+    // Encuentra al empleado por el número de documento
+    const employee = await User.findOne({ documentNumber });
+
+    console.log(employee);
+
+    if (!employee) {
+      return res.status(404).json({ error: "Empleado no encontrado" });
+    }
+
+    // Elimina al empleado de la base de datos
+    await employee.deleteOne();
+
+    res.status(200).json({ message: "Empleado eliminado correctamente" });
+  } catch (error) {
+    console.error("Error al eliminar el empleado:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
 module.exports = {
   uploadUsers,
   getEmployeed,
   listEmployeesByCompany,
   listEmployeesWithoutCompany,
   assignNITToEmployee,
+  editEmployee,
+  deleteEmployee, // Agrega la nueva función a las exportaciones
 };

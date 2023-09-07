@@ -11,6 +11,8 @@ const {
   getEmployeed,
   listEmployeesWithoutCompany,
   assignNITToEmployee,
+  editEmployee,
+  deleteEmployee,
 } = require("../controllers/employeesController");
 const { getInstructors } = require("../controllers/instructor");
 
@@ -42,6 +44,12 @@ router.get("/getEmployeesWithoutCompany", listEmployeesWithoutCompany);
 
 // Ruta para asignarle una empresa a un usuario
 router.post("/assignNITToEmployee", assignNITToEmployee);
+
+// Ruta para editar un empleado por número de documento
+router.put("/editEmployee/:documentNumber", editEmployee);
+
+// Ruta para eliminar un empleado por número de documento
+router.delete("/deleteEmployee/:documentNumber", deleteEmployee);
 
 //Ruta para obtener a los instructores o usuarios con rol 'Instructor'
 router.get("/getInstructors", getInstructors);

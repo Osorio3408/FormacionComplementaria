@@ -14,8 +14,12 @@ const {
   editEmployee,
   deleteEmployee,
   enrollUserInCourse,
+  updateEmployeeData,
 } = require("../controllers/employeesController");
 const { getInstructors } = require("../controllers/instructor");
+const {
+  getCoursesByInstructor, getEnrolledStudents,
+} = require("../controllers/instructorController");
 
 const router = express.Router();
 
@@ -57,5 +61,14 @@ router.get("/getInstructors", getInstructors);
 
 // Ruta para inscribir un usuario en un curso
 router.post("/enrollUserInCourse/:courseId", enrollUserInCourse);
+
+//Ruta para actualizar los datos de un empleado
+router.put("/updateEmployeeData/:userId", updateEmployeeData);
+
+//Ruta para obtener los cursos asignados a un instructor
+router.get("/getCoursesByInstructor/:documentNumber", getCoursesByInstructor);
+
+// Ruta para obtener la lista de aprendices inscritos en un curso específico
+router.get("/getEnrolledStudents/:courseId", getEnrolledStudents);
 
 module.exports = router;

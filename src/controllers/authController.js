@@ -38,6 +38,7 @@ const signIn = async (req, res) => {
         rol: user.rol,
         nit: user.nit,
         nameEnterprise: enterprise.nameEnterprise,
+        cellphoneNumberUser: user.cellphoneNumberUser,
       },
       "mi_secreto_supersecreto",
       { expiresIn: "1h" }
@@ -50,6 +51,7 @@ const signIn = async (req, res) => {
   }
 };
 
+// Agrega las funciones en la exportación para poder usarlas
 module.exports = {
   signIn,
 };

@@ -1,5 +1,3 @@
-const express = require("express");
-const router = express.Router();
 const Course = require("../models/Course"); // Importa el modelo de Course
 const Enterprise = require("../models/enterprise");
 const User = require("../models/user");
@@ -173,7 +171,7 @@ const updateCourse = async (req, res) => {
     }
 
     // Asegúrate de que course.inscribeedNumber se incluya en las actualizaciones
-    if (updates.hasOwnProperty('inscribeedNumber')) {
+    if (updates.hasOwnProperty("inscribeedNumber")) {
       course.inscribeedNumber = updates.inscribeedNumber;
     }
 
@@ -192,7 +190,7 @@ const updateCourse = async (req, res) => {
   }
 };
 
-
+// Agrega las funciones en la exportación para poder usarlas
 module.exports = {
   getAllEmpresas,
   getEmpresaDetails,

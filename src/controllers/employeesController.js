@@ -250,6 +250,40 @@ const enrollUserInCourse = async (req, res) => {
   }
 };
 
+// Controlador para actualizar los datos de un empleado
+const updateEmployeeData = async (req, res) => {
+  try {
+    const { userId } = req.params; // Obtén el número de documento desde los parámetros de la URL
+    const updatedEmployeeData = req.body; // Obtén los nuevos datos del empleado desde el cuerpo de la solicitud
+
+    console.log(userId);
+    console.log(updatedEmployeeData);
+
+    // Encuentra al empleado por el número de documento
+    const employee = await User.findOne({ documentNumber: userId });
+
+    if (!employee) {
+      return res.status(404).json({ error: "Empleado no encontrado" });
+    }
+    console.log(employee);
+
+    // Actualiza los campos del empleado con los nuevos datos
+    employee.nameUser = updatedEmployeeData.name;
+    employee.cellphoneNumberUser = updatedEmployeeData.cellphoneNumberUser;
+    employee.emailUser = updatedEmployeeData.email;
+
+    // Guarda los cambios en la base de datos
+    await employee.save();
+
+    res
+      .status(200)
+      .json({ message: "Datos del empleado actualizados correctamente" });
+  } catch (error) {
+    console.error("Error al actualizar los datos del empleado:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
 // Agrega las funciones en la exportación para poder usarlas
 module.exports = {
   uploadUsers,
@@ -260,4 +294,5 @@ module.exports = {
   editEmployee,
   deleteEmployee,
   enrollUserInCourse,
+  updateEmployeeData,
 };

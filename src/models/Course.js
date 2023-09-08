@@ -31,7 +31,14 @@ const courseSchema = new mongoose.Schema({
     minRequirement: { type: Number, required: true },
   },
 
-  inscribed: [{ type: Number, ref: "User" }],
+  inscribed: [
+    {
+      type: Number,
+      ref: "User",
+      localField: "documentNumber",
+      foreignField: "documentNumber",
+    },
+  ],
 
   //Campo para el número de documento del instructor que va dictar el curso/formación
   documentNumberTeacher: { type: Number },

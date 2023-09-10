@@ -71,7 +71,7 @@ const sendPasswordRecoveryEmail = async (req, res) => {
     // Genera un token de recuperación de contraseña que incluye el ID del usuario
     const recoveryToken = generateRecoveryToken(); // Implementa esta función
 
-    const recoveryUrl = `http://localhost:5173/ResetPassword/${recoveryToken}`;
+    const recoveryUrl = `https://formacion-complementaria.netlify.app/ResetPassword/${recoveryToken}`;
 
     // Guarda el token en la base de datos o en una memoria temporal asociado al usuario
     user.passwordRecoveryToken = recoveryToken;

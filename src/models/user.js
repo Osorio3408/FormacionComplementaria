@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     rol: { type: String, required: true },
     nit: { type: String, ref: "Enterprise" }, // Referencia a la Empresa
+    passwordRecoveryToken: { type: String }, // Agregar este campo
   },
   { collection: "User" }
 );

@@ -4,7 +4,11 @@ const { createUser, findUsers } = require("../controllers/userController");
 const {
   createCompanyAndAssociateUser,
 } = require("../controllers/managerController");
-const { signIn } = require("../controllers/authController");
+const {
+  signIn,
+  sendPasswordRecoveryEmail,
+  resetPassword,
+} = require("../controllers/authController");
 const {
   uploadUsers,
   listEmployeesByCompany,
@@ -18,7 +22,8 @@ const {
 } = require("../controllers/employeesController");
 const { getInstructors } = require("../controllers/instructor");
 const {
-  getCoursesByInstructor, getEnrolledStudents,
+  getCoursesByInstructor,
+  getEnrolledStudents,
 } = require("../controllers/instructorController");
 
 const router = express.Router();
@@ -40,6 +45,12 @@ router.get("/getUsers", findUsers);
 
 // Ruta para iniciar sesión
 router.post("/signIn", signIn);
+
+//Ruta para enviar el correo para recuperación de contraseña.
+router.post("/passwordRecovery", sendPasswordRecoveryEmail);
+
+//Ruta para hacer la recuperación de contraseña.
+router.post("/resetPassword/:token", resetPassword);
 
 //Ruta para crear los empleados con excel
 router.post("/newEmployees", uploadUsers);

@@ -7,6 +7,10 @@ const {
   getCoursesEnterprise,
   updateCourse,
 } = require("../controllers/courseController");
+const {
+  createHistory,
+  getHistory,
+} = require("../controllers/historyController");
 
 const router = express.Router();
 
@@ -22,5 +26,9 @@ router.get("/getCourses", getCourses);
 router.get("/getCoursesEnterprise/:nit", getCoursesEnterprise);
 //Ruta para actualizar/modificar un curso.
 router.put("/updateCourse/:idCourse", updateCourse);
+//Ruta para guardar el historial
+router.post("/saveHistory", createHistory);
+//Ruta para obtener el historial.
+router.get("/getHistory", getHistory);
 
 module.exports = router;

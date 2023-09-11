@@ -20,10 +20,10 @@ const {
   enrollUserInCourse,
   updateEmployeeData,
 } = require("../controllers/employeesController");
-const { getInstructors } = require("../controllers/instructor");
 const {
   getCoursesByInstructor,
   getEnrolledStudents,
+  getInstructors,
 } = require("../controllers/instructorController");
 
 const router = express.Router();

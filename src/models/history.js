@@ -13,6 +13,13 @@ const historySchema = new mongoose.Schema(
       localField: "documentNumber",
       foreignField: "documentNumber",
     },
+    nit: {
+      type: Number,
+      required: true,
+      ref: "Enterprise",
+      localField: "nit",
+      foreignField: "nit",
+    },
   },
   { collection: "History" }
 );

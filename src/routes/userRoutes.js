@@ -25,6 +25,7 @@ const {
   getEnrolledStudents,
   getInstructors,
 } = require("../controllers/instructorController");
+const { uploadDocuments } = require("../controllers/uploadDocumentsController");
 
 const router = express.Router();
 
@@ -81,5 +82,8 @@ router.get("/getCoursesByInstructor/:documentNumber", getCoursesByInstructor);
 
 // Ruta para obtener la lista de aprendices inscritos en un curso específico
 router.get("/getEnrolledStudents/:courseId", getEnrolledStudents);
+
+//Ruta para guardar los documentos PDF de los documento de identidad de los empleados.
+router.post("/uploadDocuments", uploadDocuments);
 
 module.exports = router;
